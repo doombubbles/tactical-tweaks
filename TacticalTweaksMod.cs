@@ -9,6 +9,9 @@ using HarmonyLib;
 using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 using Newtonsoft.Json.Linq;
 using TacticalTweaks;
 
@@ -34,6 +37,11 @@ public class TacticalTweaksMod : BloonsTD6Mod
         order = 2
     };
 
+    public static readonly ModSettingBool DefaultToNewTargeting = new(true)
+    {
+        description = "Whether to default to the new targeting options, aka setting these towers to be First by default"
+    };
+
     public static MelonPreferences_Category Preferences { get; private set; } = null!;
 
     public override void OnApplicationStart()
@@ -43,6 +51,36 @@ public class TacticalTweaksMod : BloonsTD6Mod
         AccessTools.GetTypesFromAssembly(MelonAssembly.Assembly)
             .Where(type => !type.IsNested)
             .Do(ApplyHarmonyPatches);
+    }
+
+    public static void AddAllTargets(AttackModel attackModel)
+    {
+        var prevTargets = attackModel.GetBehaviors<TargetSupplierModel>().ToList();
+
+        attackModel.AddBehavior(new TargetFirstModel("", true, false));
+        attackModel.AddBehavior(new TargetLastModel("", true, false));
+        attackModel.AddBehavior(new TargetCloseModel("", true, false));
+        attackModel.AddBehavior(new TargetStrongModel("", true, false));
+
+        if (!DefaultToNewTargeting) return;
+
+        foreach (var target in prevTargets)
+        {
+            attackModel.RemoveBehavior(target);
+            attackModel.AddBehavior(target);
+        }
+    }
+
+    public static void UpdatePointer(AttackModel attackModel)
+    {
+        var pointer = attackModel.GetBehavior<RotateToPointerModel>();
+        attackModel.AddBehavior(new RotateToTargetModel("", false, false, pointer.rotateOnlyOnEmit, 0,
+            pointer.rotateTower, false));
+
+        if (attackModel.HasDescendant(out LineEffectModel lineEffectModel))
+        {
+            lineEffectModel.useRotateToPointer = false;
+        }
     }
 
     public override void OnSaveSettings(JObject settings)

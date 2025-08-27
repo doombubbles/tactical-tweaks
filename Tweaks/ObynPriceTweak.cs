@@ -1,4 +1,5 @@
 ﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 
@@ -16,7 +17,7 @@ public class ObynPriceTweak : ToggleableTweak
     public override void OnNewGameModel(GameModel gameModel)
     {
         var sauda = gameModel.GetTowerWithName(TowerType.Sauda);
-        foreach (var towerModel in gameModel.GetTowersWithBaseId(TowerType.ObynGreenfoot))
+        foreach (var towerModel in gameModel.GetTowersWithBaseId(TowerType.ObynGreenfoot).AsIEnumerable())
         {
             towerModel.cost = sauda.cost;
         }

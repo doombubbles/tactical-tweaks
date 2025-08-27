@@ -19,6 +19,7 @@ public class BetterArmorPiercingDarts : ToggleableTweak
     public override void OnNewGameModel(GameModel gameModel)
     {
         foreach (var towerModel in gameModel.GetTowersWithBaseId(TowerType.MonkeySub)
+                     .AsIEnumerable()
                      .Where(model => model.appliedUpgrades.Contains(UpgradeType.ArmorPiercingDarts)))
         {
             var damageModel = towerModel.GetWeapon()!.projectile.GetDamageModel()!;

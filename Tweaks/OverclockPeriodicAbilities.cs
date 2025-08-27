@@ -28,10 +28,16 @@ public class OverclockPeriodicAbilities : ToggleableTweak
         {
             if (!GetInstance<OverclockPeriodicAbilities>().Enabled) return;
 
+            var rateModifier = __instance.overclockModel.rateModifier;
             model.GetDescendants<ActivateAbilityAfterIntervalModel>().ForEach(i =>
             {
-                i.interval *= __instance.overclockModel.rateModifier;
-                i.intervalFrames = Math.CeilToInt(i.intervalFrames * __instance.overclockModel.rateModifier);
+                i.interval *= rateModifier;
+                i.intervalFrames = Math.CeilToInt(i.intervalFrames * rateModifier);
+                if (i.name.Contains("TechBotify"))
+                {
+                    i.abilityModel.cooldown *= rateModifier;
+                    i.abilityModel.cooldownFrames = Math.CeilToInt(i.abilityModel.cooldownFrames * rateModifier);
+                }
             });
         }
     }
@@ -51,6 +57,11 @@ public class OverclockPeriodicAbilities : ToggleableTweak
             {
                 i.interval *= rateModifier;
                 i.intervalFrames = Math.CeilToInt(i.intervalFrames * rateModifier);
+                if (i.name.Contains("TechBotify"))
+                {
+                    i.abilityModel.cooldown *= rateModifier;
+                    i.abilityModel.cooldownFrames = Math.CeilToInt(i.abilityModel.cooldownFrames * rateModifier);
+                }
             });
         }
     }

@@ -28,10 +28,7 @@ public class MortarMonkeyTargeting : ToggleableTweak
         {
             var attackModel = model.GetAttackModel();
             
-            attackModel.AddBehavior(new TargetFirstModel("", true, false));
-            attackModel.AddBehavior(new TargetLastModel("", true, false));
-            attackModel.AddBehavior(new TargetCloseModel("", true, false));
-            attackModel.AddBehavior(new TargetStrongModel("", true, false));
+            TacticalTweaksMod.AddAllTargets(attackModel);
             
             model.towerSelectionMenuThemeId = "ActionButton";
             model.UpdateTargetProviders();

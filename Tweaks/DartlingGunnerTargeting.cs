@@ -36,17 +36,8 @@ public class DartlingGunnerTargeting : ToggleableTweak
         {
             var attackModel = model.GetAttackModel();
 
-            attackModel.AddBehavior(new RotateToTargetModel("", false, false, false, 0, false, false));
-
-            attackModel.AddBehavior(new TargetFirstModel("", true, false));
-            attackModel.AddBehavior(new TargetLastModel("", true, false));
-            attackModel.AddBehavior(new TargetCloseModel("", true, false));
-            attackModel.AddBehavior(new TargetStrongModel("", true, false));
-
-            if (attackModel.HasDescendant(out LineEffectModel lineEffectModel))
-            {
-                lineEffectModel.useRotateToPointer = false;
-            }
+            TacticalTweaksMod.UpdatePointer(attackModel);
+            TacticalTweaksMod.AddAllTargets(attackModel);
 
             model.UpdateTargetProviders();
         }
@@ -60,9 +51,18 @@ public class DartlingGunnerTargeting : ToggleableTweak
         {
             var attack = __instance.attack;
             if (!GetInstance<DartlingGunnerTargeting>().Enabled ||
-                !attack.activeTargetSupplier.Is(out var target) ||
-                !attack.HasAttackBehavior<RotateToPointer>() ||
-                !attack.HasAttackBehavior<RotateToTarget>()) return true;
+                !attack.activeTargetSupplier.Is(out var target)) return true;
+
+            var hasPointer = false;
+            var hasTarget = false;
+
+            foreach (var attackBehavior in attack.attackBehaviors)
+            {
+                hasPointer |= attackBehavior.Is<RotateToPointer>();
+                hasTarget |= attackBehavior.Is<RotateToTarget>();
+            }
+
+            if (!hasPointer || !hasTarget) return true;
 
             var targetsBloon = target.Is<TargetFirst>() || target.Is<TargetLast>() ||
                                target.Is<TargetClose>() || target.Is<TargetStrong>() || target.Is<TargetCamo>();
@@ -79,9 +79,18 @@ public class DartlingGunnerTargeting : ToggleableTweak
         {
             var attack = __instance.attack;
             if (!GetInstance<DartlingGunnerTargeting>().Enabled ||
-                !attack.activeTargetSupplier.Is(out var target) ||
-                !attack.HasAttackBehavior<RotateToPointer>() ||
-                !attack.HasAttackBehavior<RotateToTarget>()) return true;
+                !attack.activeTargetSupplier.Is(out var target)) return true;
+
+            var hasPointer = false;
+            var hasTarget = false;
+
+            foreach (var attackBehavior in attack.attackBehaviors)
+            {
+                hasPointer |= attackBehavior.Is<RotateToPointer>();
+                hasTarget |= attackBehavior.Is<RotateToTarget>();
+            }
+
+            if (!hasPointer || !hasTarget) return true;
 
             var targetsBloon = target.Is<TargetFirst>() || target.Is<TargetLast>() ||
                                target.Is<TargetClose>() || target.Is<TargetStrong>() || target.Is<TargetCamo>();
