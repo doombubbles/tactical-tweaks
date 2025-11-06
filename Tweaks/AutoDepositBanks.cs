@@ -1,4 +1,5 @@
-﻿using BTD_Mod_Helper.Extensions;
+﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation;
@@ -14,6 +15,8 @@ public class AutoDepositBanks : ToggleableTweak
     public override string Description =>
         "When making a full collection from a Monkey Bank that has Deposits enabled, " +
         "half of the amount collected will be automatically deposited back.";
+
+    protected override string Icon => VanillaSprites.IMFLoanUpgradeIcon;
 
     [HarmonyPatch(typeof(Bank), nameof(Bank.Collect))]
     internal static class Bank_Collect

@@ -25,7 +25,7 @@ public class ParagonSentryTargeting : ToggleableTweak
         var sentry = engineer.FindDescendant<TowerModel>(TowerType.SentryParagonGreen);
         var attackModel = sentry.GetAttackModel();
 
-        TacticalTweaksMod.UpdatePointer(attackModel);
+        TacticalTweaksMod.UpdatePointer(attackModel, false);
         TacticalTweaksMod.AddAllTargets(attackModel);
         
         sentry.UpdateTargetProviders();

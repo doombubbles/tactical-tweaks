@@ -39,7 +39,8 @@ public class TacticalTweaksMod : BloonsTD6Mod
 
     public static readonly ModSettingBool DefaultToNewTargeting = new(true)
     {
-        description = "Whether to default to the new targeting options, aka setting these towers to be First by default"
+        description = "Whether to default to the new targeting options, aka setting these towers to be First by default",
+        category = Targeting
     };
 
     public static MelonPreferences_Category Preferences { get; private set; } = null!;
@@ -71,11 +72,11 @@ public class TacticalTweaksMod : BloonsTD6Mod
         }
     }
 
-    public static void UpdatePointer(AttackModel attackModel)
+    public static void UpdatePointer(AttackModel attackModel, bool? rotateTower = null)
     {
         var pointer = attackModel.GetBehavior<RotateToPointerModel>();
         attackModel.AddBehavior(new RotateToTargetModel("", false, false, pointer.rotateOnlyOnEmit, 0,
-            pointer.rotateTower, false));
+            rotateTower ?? pointer.rotateTower, false));
 
         if (attackModel.HasDescendant(out LineEffectModel lineEffectModel))
         {

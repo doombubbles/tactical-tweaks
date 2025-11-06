@@ -36,7 +36,10 @@ public class DartlingGunnerTargeting : ToggleableTweak
         {
             var attackModel = model.GetAttackModel();
 
-            TacticalTweaksMod.UpdatePointer(attackModel);
+            var rotate = !model.appliedUpgrades.Contains(UpgradeType.RayOfDoom) &&
+                         !model.appliedUpgrades.Contains(UpgradeType.Buckshot);
+
+            TacticalTweaksMod.UpdatePointer(attackModel, rotate);
             TacticalTweaksMod.AddAllTargets(attackModel);
 
             model.UpdateTargetProviders();
