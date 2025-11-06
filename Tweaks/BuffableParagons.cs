@@ -22,7 +22,7 @@ public class BuffableParagons : ToggleableTweak
 {
     protected override float RegistrationPriority => -1;
 
-    protected override bool DefaultEnabled => true;
+    protected override bool DefaultEnabled => false;
 
     public override string Description => "Makes Paragons able to receive buffs like normal towers.";
 
