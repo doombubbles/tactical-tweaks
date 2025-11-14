@@ -8,9 +8,9 @@ public static class ModHelperData
 
     public const string Description =
         """
-        Adds an assortment of minor gameplay altering tweaks to BTD6, including Buffable Paragons. See the Main Readme for the Full list.
+        Adds an assortment of minor gameplay altering tweaks to BTD6, including **Buffable Paragons**!. See the Main Readme for full details.
 
-        New: Auto Collect/Deposit Banks, Obyn Price Tweak, More Overclock Interactions, More Unfreezable Towers
+        New: Beast Handler Lone T5s, Brickell Mermonkeys, Elite Defender Target Switch, Etienne Targeting, Sticky Bomb Attack Speed, Better Laser Blasts, Better Trojan, Better Monkey City, Better Central Market, Auto Collect/Deposit Banks, Obyn Price Tweak, More Overclock Interactions, More Unfreezable Towers
         Formerly Useful Utilities: Dartling/Mortary/Sentry Targeting, Auto Trap Refresh
         Old Mods: Better Armor Piercing, Better Ezili Totem
         """;
