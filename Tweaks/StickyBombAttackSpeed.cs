@@ -21,11 +21,11 @@ public class StickyBombAttackSpeed : ToggleableTweak
 
     protected override string Icon => VanillaSprites.StickyBombUpgradeIcon;
 
-    public static void Apply(Tower tower)
+    public static void Apply(Tower? tower)
     {
-        if (!GetInstance<StickyBombAttackSpeed>().Enabled ||
-            tower is not {towerModel: not null} ||
-            !tower.towerModel.appliedUpgrades.Contains(UpgradeType.StickyBomb) ||
+        if (tower?.towerModel == null ||
+            !GetInstance<StickyBombAttackSpeed>().Enabled ||
+            tower.towerModel.appliedUpgrades?.Contains(UpgradeType.StickyBomb) != true ||
             tower.IsMutatedBy(nameof(StickyBombAttackSpeed))) return;
 
         tower.AddMutator(new RateSupportModel.RateSupportMutator(true, nameof(StickyBombAttackSpeed), 1, -100, null)
