@@ -54,6 +54,24 @@ public class BuffableParagons : ToggleableTweak
     }
 
     /// <summary>
+    /// Refresh zone mutators the paragon might be in already
+    /// </summary>
+    [HarmonyPatch(typeof(ParagonTower), nameof(ParagonTower.Finish))]
+    internal static class ParagonTower_Finish
+    {
+        [HarmonyPostfix]
+        internal static void Postfix(ParagonTower __instance)
+        {
+            if (!GetInstance<BuffableParagons>().Enabled) return;
+
+            foreach (var tower in __instance.Sim.towerManager.GetTowers().ToArray())
+            {
+                tower.onSuspendedChanged?.Invoke();
+            }
+        }
+    }
+
+    /// <summary>
     /// Make Overclock and Take Aim work
     /// </summary>
     [HarmonyPatch(typeof(TapTowerAbilityBehavior), nameof(TapTowerAbilityBehavior.IsBanned))]

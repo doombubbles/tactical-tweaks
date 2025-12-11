@@ -1,3 +1,1 @@
-- Fixed Brickell Mermonkeys for v52
-- Fixed an error message that could appear in the log about Sticky Bomb Attack Speed
-- Made the Overclock Cash tweak also affect cash generating abilities
+- Fixed Buffable Paragons not immediately getting the pre-existing zone buffs they're within on creation
