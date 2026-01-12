@@ -15,6 +15,8 @@ public class BetterEziliTotem : ToggleableTweak
 
     public override void OnNewGameModel(GameModel gameModel)
     {
+        if (!Enabled) return;
+
         for (var i = 7; i <= 20; i++)
         {
             var towerModel = gameModel.GetHeroWithNameAndLevel(TowerType.Ezili, i);

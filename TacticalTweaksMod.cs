@@ -110,9 +110,9 @@ public class TacticalTweaksMod : BloonsTD6Mod
 
     public override void OnNewGameModel(GameModel gameModel)
     {
-        foreach (var usefulUtility in TacticalTweaks.Values)
+        foreach (var tacticalTweak in TacticalTweaks.Values)
         {
-            usefulUtility.OnNewGameModel(gameModel);
+            tacticalTweak.OnNewGameModel(gameModel);
         }
 
         var strikerJones = gameModel.GetHeroWithNameAndLevel(TowerType.StrikerJones, 20);

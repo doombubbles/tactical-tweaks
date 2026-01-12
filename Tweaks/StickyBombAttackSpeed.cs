@@ -7,7 +7,6 @@ using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
-using Il2CppAssets.Scripts.Simulation.SMath;
 using Il2CppAssets.Scripts.Simulation.Towers;
 
 namespace TacticalTweaks.Tweaks;
@@ -68,15 +67,16 @@ public class StickyBombAttackSpeed : ToggleableTweak
             foreach (var stickyBomb in stickyBombs)
             {
                 stickyBomb.lifespan *= reduction;
+                if (stickyBomb.lifespan < 0.05f) stickyBomb.lifespan = .05f;
                 stickyBomb.lifespanFrames = (int) (stickyBomb.lifespan * 60);
 
                 foreach (var damage in stickyBomb.GetBehaviors<DamageOverTimeModel>())
                 {
-                    damage.Interval = stickyBomb.lifespan * .98f;
+                    damage.Interval = stickyBomb.lifespan - .02f;
                 }
                 foreach (var proj in stickyBomb.GetBehaviors<ProjectileOverTimeModel>())
                 {
-                    proj.Interval = stickyBomb.lifespan * .98f;
+                    proj.Interval = stickyBomb.lifespan - .02f;
 
                 }
             }
