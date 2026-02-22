@@ -76,7 +76,10 @@ public class BetterCentralMarket : ToggleableTweak
             foreach (var cashPerFarm in model.GetDescendants<CashPerBananaFarmInRangeModel>().AsIEnumerable())
             {
                 cashPerFarm.baseCash *= multiplier;
-                cashPerFarm.cash *= multiplier;
+                for (var i = 0; i < cashPerFarm.extraCashPerTier.Count; i++)
+                {
+                    cashPerFarm.extraCashPerTier[i] *= multiplier;;
+                }
                 __result = true;
             }
 

@@ -1,3 +1,1 @@
-- Fixed Better Ezili Totem not aligning with its toggled setting state
-- Fixed a scaling issue with Sticky Bomb Attack Speed for very highly buffed attack rate
-- Added a temporary fix for the Ice Monkey Paragon ability not activating its full slow if a round ends during it (this should get fixed for real by NK soon)
+- Fixed some tweaks for v53

@@ -37,7 +37,10 @@ public class OverlockCash : ToggleableTweak
         foreach (var cashPerFarm in towerModel.GetDescendants<CashPerBananaFarmInRangeModel>().AsIEnumerable())
         {
             cashPerFarm.baseCash /= rateModifier;
-            cashPerFarm.cash /= rateModifier;
+            for (var i = 0; i < cashPerFarm.extraCashPerTier.Count; i++)
+            {
+                cashPerFarm.extraCashPerTier[i] /= rateModifier;
+            }
         }
 
         if (towerModel.baseId != TowerType.BananaFarm && towerModel.baseId != TowerType.MonkeyVillage)
