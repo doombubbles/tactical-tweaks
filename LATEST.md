@@ -1,1 +1,2 @@
-- Fixed some tweaks for v54
+- Fixed ice monkey paragon console error when using ability choice
+- Added a tweak for making Obyn's Druid buffs be global

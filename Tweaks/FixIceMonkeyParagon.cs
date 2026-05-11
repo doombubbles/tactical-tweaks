@@ -10,6 +10,6 @@ public class FixIceMonkeyParagon : TacticalTweak
     public override void OnNewGameModel(GameModel gameModel)
     {
         var iceMonkeyParagon = gameModel.GetParagonTower(TowerType.IceMonkey);
-        iceMonkeyParagon.GetAbility().GetDescendant<AgeModel>().rounds = 999999;
+        iceMonkeyParagon.GetAbility()?.GetDescendant<AgeModel>()?.rounds = 999999;
     }
 }
