@@ -7,11 +7,13 @@ using BTD_Mod_Helper.Api.ModOptions;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
 using Il2CppAssets.Scripts.Models;
+using Il2CppAssets.Scripts.Models.Profile;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Towers;
 using Newtonsoft.Json.Linq;
 using TacticalTweaks;
 
@@ -100,11 +102,11 @@ public class TacticalTweaksMod : BloonsTD6Mod
         }
     }
 
-    public override void OnRestart()
+    public override void OnGameObjectsReset()
     {
         foreach (var usefulUtility in TacticalTweaks.Values)
         {
-            usefulUtility.OnRestart();
+            usefulUtility.OnGameObjectsReset();
         }
     }
 
@@ -118,5 +120,21 @@ public class TacticalTweaksMod : BloonsTD6Mod
         var strikerJones = gameModel.GetHeroWithNameAndLevel(TowerType.StrikerJones, 20);
         strikerJones.AddBehavior(new SupportRemoveFilterOutTagModel("", "Striker:DdtDamageModifier",
             "Striker:Level9BlackBuff", null, true, false, 0, "", ""));
+    }
+
+    public override void OnTowerSaved(Tower tower, TowerSaveDataModel saveData)
+    {
+        foreach (var tacticalTweak in TacticalTweaks.Values)
+        {
+            tacticalTweak.OnTowerSaved(tower, saveData);
+        }
+    }
+
+    public override void OnTowerLoaded(Tower tower, TowerSaveDataModel saveData)
+    {
+        foreach (var tacticalTweak in TacticalTweaks.Values)
+        {
+            tacticalTweak.OnTowerLoaded(tower, saveData);
+        }
     }
 }

@@ -6,6 +6,8 @@ using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper.Api.Data;
 using BTD_Mod_Helper.Api.ModOptions;
 using Il2CppAssets.Scripts.Models;
+using Il2CppAssets.Scripts.Models.Profile;
+using Il2CppAssets.Scripts.Simulation.Towers;
 using MelonLoader;
 
 namespace TacticalTweaks;
@@ -69,11 +71,19 @@ public abstract class TacticalTweak : NamedModContent, IModSettings
     {
     }
 
-    public virtual void OnRestart()
+    public virtual void OnGameObjectsReset()
     {
     }
 
     public virtual void OnNewGameModel(GameModel gameModel)
+    {
+    }
+
+    public virtual void OnTowerSaved(Tower tower, TowerSaveDataModel saveData)
+    {
+    }
+
+    public virtual void OnTowerLoaded(Tower tower, TowerSaveDataModel saveData)
     {
     }
 }
