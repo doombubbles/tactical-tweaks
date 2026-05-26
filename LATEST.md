@@ -1,2 +1,4 @@
-- Fixed ice monkey paragon console error when using ability choice
-- Added a tweak for making Obyn's Druid buffs be global
+- Added Pursuit Path Prioritization (default on)
+  - Allows Heli Pilots to choose to prioritize Bloons on specific paths.
+- Added Hero Boost Debt (default on)
+  - Replaces the Monkey Money Hero Boost with a button that lets you purchase the next level up of the hero by going into debt.

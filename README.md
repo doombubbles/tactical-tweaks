@@ -16,6 +16,8 @@ Incorporates a few things ported from Useful Utilities, a few of my old mods, an
 
 - **Buffable Paragons** (Default Off)
   - Makes Paragons able to receive buffs like normal towers.
+- Pursuit Path Prioritization (default on)
+  - Allows Heli Pilots to choose to prioritize Bloons on specific paths.
 - Beast Handler Lone T5s (Default Off)
   - Allows Tier 5 Beast Handlers to be purchased even without any other Beast Handlers contributing to them.
   - Megalodon still requires 84 Beast Power to insta kill BAD Bloons.
@@ -50,6 +52,8 @@ Incorporates a few things ported from Useful Utilities, a few of my old mods, an
   - Overclock Periodic Abilities - Makes the Overclock buff affect the frequency of periodic ability activations like Carpet of Spikes.
 - Periodic Ability Cooldown Reduction (Default On)
   - Makes ability cooldown reduction effects also apply to periodically activated abilities like Carpet of Spikes.
+- Hero Boost Debt (default on)
+  - Replaces the Monkey Money Hero Boost with a button that lets you purchase the next level up of the hero by going into debt.
 - Glacial Trail More Unfreezable Towers (Default On)
   - Fire Towers and other Ice Towers no longer get frozen on Glacial Trail, including:
     - Gwen (Any Skin)
