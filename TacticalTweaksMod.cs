@@ -117,9 +117,24 @@ public class TacticalTweaksMod : BloonsTD6Mod
             tacticalTweak.OnNewGameModel(gameModel);
         }
 
-        var strikerJones = gameModel.GetHeroWithNameAndLevel(TowerType.StrikerJones, 20);
-        strikerJones.AddBehavior(new SupportRemoveFilterOutTagModel("", "Striker:DdtDamageModifier",
-            "Striker:Level9BlackBuff", null, true, false, 0, "", ""));
+        var strikerJones = gameModel.GetTowersWithBaseId(TowerType.StrikerJones)
+            .AsIEnumerable()
+            .FirstOrDefault(model => model.tier == 20);
+
+        if (strikerJones is not null)
+        {
+            strikerJones.AddBehavior(new SupportRemoveFilterOutTagModel(
+                "",
+                "Striker:DdtDamageModifier",
+                "Striker:Level9BlackBuff",
+                null,
+                true,
+                false,
+                0,
+                "",
+                ""
+            ));
+        }
     }
 
     public override void OnTowerSaved(Tower tower, TowerSaveDataModel saveData)
