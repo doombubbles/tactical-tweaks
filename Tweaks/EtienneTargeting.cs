@@ -27,9 +27,9 @@ public class EtienneTargeting : ToggleableTweak
             var attack = towerModel.GetAttackModel();
             attack.RemoveBehaviors<TargetDivideAndConquerModel>();
             attack.RemoveBehaviors<TargetZoneDefenceModel>();
-            attack.AddBehavior(new TargetLastModel("", true, false));
-            attack.AddBehavior(new TargetCloseModel("", true, false));
-            attack.AddBehavior(new TargetStrongModel("", true, false));
+            attack.AddBehavior(TargetLastModel.Create(new() { isSelectable = true }));
+            attack.AddBehavior(TargetCloseModel.Create(new() { isSelectable = true }));
+            attack.AddBehavior(TargetStrongModel.Create(new() { isSelectable = true }));
 
             towerModel.UpdateTargetProviders();
         }

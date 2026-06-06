@@ -53,7 +53,12 @@ public class HeroBoostDebt : ToggleableTweak
                     __instance.Bridge.UpgradeHeroToLevel(tower.Id, new Action<bool>(_ => { }), tower.hero.level + 1);
 
                     __instance.Bridge.Simulation.AddBehavior<ImfLoanCollection>(
-                        new ImfLoanCollectionModel(nameof(HeroBoostDebt), .5f, tower.hero.costToLevelUp));
+                        ImfLoanCollectionModel.Create(new()
+                        {
+                            name = nameof(HeroBoostDebt),
+                            collectionRate = .5f,
+                            amount = tower.hero.costToLevelUp
+                        }));
 
                     __instance.UpdateHeroBooster(tower);
                 }), "Yes", new Action(() =>

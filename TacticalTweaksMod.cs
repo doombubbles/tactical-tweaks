@@ -60,10 +60,10 @@ public class TacticalTweaksMod : BloonsTD6Mod
     {
         var prevTargets = attackModel.GetBehaviors<TargetSupplierModel>().ToList();
 
-        attackModel.AddBehavior(new TargetFirstModel("", true, false));
-        attackModel.AddBehavior(new TargetLastModel("", true, false));
-        attackModel.AddBehavior(new TargetCloseModel("", true, false));
-        attackModel.AddBehavior(new TargetStrongModel("", true, false));
+        attackModel.AddBehavior(TargetFirstModel.Create(new() { isSelectable = true }));
+        attackModel.AddBehavior(TargetLastModel.Create(new() { isSelectable = true }));
+        attackModel.AddBehavior(TargetCloseModel.Create(new() { isSelectable = true }));
+        attackModel.AddBehavior(TargetStrongModel.Create(new() { isSelectable = true }));
 
         if (!DefaultToNewTargeting) return;
 
@@ -77,8 +77,11 @@ public class TacticalTweaksMod : BloonsTD6Mod
     public static void UpdatePointer(AttackModel attackModel, bool? rotateTower = null)
     {
         var pointer = attackModel.GetBehavior<RotateToPointerModel>();
-        attackModel.AddBehavior(new RotateToTargetModel("", false, false, pointer.rotateOnlyOnEmit, 0,
-            rotateTower ?? pointer.rotateTower, false));
+        attackModel.AddBehavior(RotateToTargetModel.Create(new()
+        {
+            rotateOnlyOnThrow = pointer.rotateOnlyOnEmit,
+            rotateTower = rotateTower ?? pointer.rotateTower
+        }));
 
         if (attackModel.HasDescendant(out LineEffectModel lineEffectModel))
         {
@@ -117,24 +120,14 @@ public class TacticalTweaksMod : BloonsTD6Mod
             tacticalTweak.OnNewGameModel(gameModel);
         }
 
-        var strikerJones = gameModel.GetTowersWithBaseId(TowerType.StrikerJones)
-            .AsIEnumerable()
-            .FirstOrDefault(model => model.tier == 20);
+        var strikerJones = gameModel.GetHeroWithNameAndLevel(TowerType.StrikerJones, 20);
 
-        if (strikerJones is not null)
+        strikerJones?.AddBehavior(SupportRemoveFilterOutTagModel.Create(new()
         {
-            strikerJones.AddBehavior(new SupportRemoveFilterOutTagModel(
-                "",
-                "Striker:DdtDamageModifier",
-                "Striker:Level9BlackBuff",
-                null,
-                true,
-                false,
-                0,
-                "",
-                ""
-            ));
-        }
+            mutatorId = "Striker:DdtDamageModifier",
+            removeScriptWithSupportMutatorId = "Striker:Level9BlackBuff",
+            isGlobal = true
+        }));
     }
 
     public override void OnTowerSaved(Tower tower, TowerSaveDataModel saveData)

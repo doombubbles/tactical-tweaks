@@ -1,9 +1,11 @@
-﻿using BTD_Mod_Helper.Api.Enums;
+﻿using System.Collections.Generic;
+using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Filters;
 using Il2CppAssets.Scripts.Models.Towers.TowerFilters;
 
 namespace TacticalTweaks.Tweaks;
@@ -24,18 +26,29 @@ public class BrickellMermonkeys : ToggleableTweak
         {
             if (tower.baseId != TowerType.AdmiralBrickell) continue;
 
-            tower.GetDescendants<ActivateRateSupportZoneModel>()
-                .ForEach(model => model.AddChildDependants(model.filters));
-            tower.GetDescendants<ActivatePierceSupportZoneModel>()
-                .ForEach(model => model.AddChildDependants(model.filters));
-            tower.GetDescendants<ActivateTowerDamageSupportZoneModel>()
-                .ForEach(model => model.AddChildDependants(model.filters));
-            tower.GetDescendants<ActivateVisibilitySupportZoneModel>()
-                .ForEach(model => model.AddChildDependants(model.filters));
-            tower.GetDescendants<PierceSupportModel>()
-                .ForEach(model => model.AddChildDependants(model.filters));
+            var filters = new List<TowerFilterModel>();
 
-            tower.GetDescendants<FilterTowerByPlaceableAreaModel>().ForEach(model => model.exclusive = false);
+            tower.GetDescendants<Model>().ForEach(model =>
+            {
+                if (model.Is(out ActivateRateSupportZoneModel activateRateSupportZoneModel))
+                    filters.AddRange(activateRateSupportZoneModel.filters);
+                if (model.Is(out ActivatePierceSupportZoneModel activatePierceSupportZoneModel))
+                    filters.AddRange(activatePierceSupportZoneModel.filters);
+                if (model.Is(out ActivateTowerDamageSupportZoneModel activateTowerDamageSupportZoneModel))
+                    filters.AddRange(activateTowerDamageSupportZoneModel.filters);
+                if (model.Is(out ActivateVisibilitySupportZoneModel activateVisibilitySupportZoneModel))
+                    filters.AddRange(activateVisibilitySupportZoneModel.filters);
+                if (model.Is(out PierceSupportModel pierceSupportModel))
+                    filters.AddRange(pierceSupportModel.filters);
+            });
+
+            foreach (var towerFilterModel in filters)
+            {
+                if (towerFilterModel.Is(out FilterTowerByPlaceableAreaModel filterTowerByPlaceableAreaModel))
+                {
+                    filterTowerByPlaceableAreaModel.exclusive = false;
+                }
+            }
         }
     }
 }
