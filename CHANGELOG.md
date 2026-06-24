@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.2.2] - 2026-06-24
+
 - Fixed Pursuit Path Prioritization overriding the buttons for Lock in Place and Patrol Points
 
 ## [1.2.1] - 2026-06-07
@@ -99,3 +101,6 @@ All notable changes to this project will be documented in this file.
 [1.1.0]: https://github.com/doombubbles/tactical-tweaks/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/doombubbles/tactical-tweaks/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/doombubbles/tactical-tweaks/compare/1.0.0...1.0.0
+
+[unreleased]: https://github.com/doombubbles/tactical-tweaks/compare/1.2.2...HEAD
+[1.2.2]: https://github.com/doombubbles/tactical-tweaks/compare/39888dc031451b066b2f9e6a54ee6cb6500ef986...1.2.2

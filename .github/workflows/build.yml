@@ -168,6 +168,6 @@ jobs:
           tag_name: ${{ env.RELEASE_TAG }}
           target_commitish: ${{ env.RELEASE_SHA || github.sha }}
           files: ${{ env.BLOONSTD6 }}/Mods/${{ env.DLL_NAME }}
-          body_path: ${{ env.PROJECT_NAME }}/LATEST.md
+          body: ${{ steps.changelog_read.outputs.changes || steps.changelog_rotate.outputs.release-notes || env.RELEASE_DESC }}
           fail_on_unmatched_files: true
           draft: ${{ env.ACT == 'true' }}
