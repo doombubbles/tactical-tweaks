@@ -42,7 +42,8 @@ public class PursuitPathPrioritization : ToggleableTweak
     {
         if (!Enabled) return;
 
-        foreach (var towerModel in gameModel.GetTowersWithBaseId(TowerType.HeliPilot).ToArray())
+        foreach (var towerModel in gameModel.GetTowersWithBaseId(TowerType.HeliPilot).ToArray()
+                     .Where(model => model.appliedUpgrades?.Contains(UpgradeType.Pursuit) == true))
         {
             towerModel.towerSelectionMenuThemeId = GetId<PursuitTsmTheme>();
         }
@@ -102,7 +103,7 @@ public class PursuitPathPrioritization : ToggleableTweak
 
     public class PursuitTsmTheme : ModTsmTheme
     {
-        public override string BaseTheme => "Default";
+        public override string BaseTheme => "HeliPilot";
 
         private TSMButton button = null!;
 
