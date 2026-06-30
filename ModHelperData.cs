@@ -16,5 +16,6 @@ public static class ModHelperData
         """;
 
     public const string RepoOwner = "doombubbles";
-    public const string RepoName = "tactical-tweaks";
+    public const string PrevRepoName = "tactical-tweaks";
+    public const string RepoName = "TacticalTweaks";
 }
